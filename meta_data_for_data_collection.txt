@@ -1,0 +1,21 @@
+"Dataset:
+Dataset Name/Source: E.g., NREL, PVOutput.org, Utility X.
+Resolution: E.g., hourly, sub-hourly, daily.
+Coverage: E.g., geographical region (USA, Europe, etc.).
+Size: Number of samples or days/years covered.
+Any preprocessing steps (if any): E.g., missing data handling, normalization.
+Public or Private (if any):
+
+
+Model:
+Model Type: E.g., Neural Networks (LSTM, GRU), Decision Trees, ARIMA, Hybrid models.
+Model Inputs: Features used (e.g., irradiance, temperature, historical PV output).
+Training Techniques: E.g., supervised learning, transfer learning.
+Validation Approach (if any): Cross-validation, train-test split, etc.
+
+
+Metrics Results:
+
+Performance Metrics: RMSE, MAE, MAPE, R², etc.
+Prediction Horizon (if any): E.g., next hour, next day.
+Reported Results: E.g., average RMSE values, confidence intervals."

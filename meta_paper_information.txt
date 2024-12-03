@@ -1,0 +1,1349 @@
+data = {
+    "references": [
+        {
+            "label": "shaker2015data",
+            "Dataset": {
+                "Name/Source": "NREL Solar Power Data for Integration Studies",
+                "Resolution": "Hourly",
+                "Coverage": "California, USA",
+                "Size": "Data from 405 PV sites, covering a full year",
+                "Preprocessing Steps": "Sites' capacities were downscaled to 1-50 kW to represent residential and commercial PV systems",
+                "Public or Private": "Public"
+            },
+            "Model": {
+                "Model Type": [
+                    "Principal Component Analysis (PCA)",
+                    "k-Means Clustering",
+                    "Proposed Hybrid k-Means + PCA Approach",
+                    "Relief",
+                    "Correlation-Based Feature Selection (CFS)",
+                    "Linear Regression",
+                    "Kalman Filter",
+                    "Multi-Layer Perceptrons (MLP)",
+                    "Wavelet Neural Networks (WNN)"
+                ],
+                "Model Inputs": ["Power generation data", "Location data (longitude and latitude)"],
+                "Training Techniques": [
+                    "Training on 4 months of data and testing on the remaining 8 months",
+                    "Trial-and-error for model configuration (e.g., lag determination, neuron counts in MLP)"
+                ],
+                "Validation Approach": "Train-test split (4 months training, 8 months testing)"
+            },
+            "Metrics Results": {
+                "Performance Metrics": [
+                    "Daily Root Mean Squared Error (DRMSE)",
+                    "Daily Peak Estimation Error",
+                    "Daily Energy Estimation Error",
+                    "Ramp Rate Estimation Error"
+                ],
+                "Prediction Horizon": "Hourly aggregated generation",
+                "Reported Results": {
+                    "Best Performance": "Hybrid k-Means + PCA approach with linear regression yielded the lowest DRMSE",
+                    "Error Trends": "Higher errors on cloudy days compared to sunny days",
+                    "Details": "Specific DRMSE values and error distributions are reported in tables and figures"
+                }
+            }
+        },
+        {
+            "label": "bu2022two",
+            "Dataset": {
+                "Name/Source": "Public dataset from Nagasawa et al.",
+                "Resolution": "Hourly",
+                "Coverage": "100 customers with PV systems and 115 customers without PVs, likely from the USA",
+                "Size": "One year of data",
+                "Preprocessing Steps": "NA",
+                "Public or Private": "Public"
+            },
+            "Model": {
+                "Model Type": [
+                    "Gaussian Process Regression (GPR)",
+                    "Optimization-based Allocation Method"
+                ],
+                "Model Inputs": [
+                    "Net demand and native demand data",
+                    "Candidate generation curves (generated using PVWatts)"
+                ],
+                "Training Techniques": [
+                    "Gaussian Process Regression for curve relationship modeling",
+                    "Convex optimization for generation allocation"
+                ],
+                "Validation Approach": "Train-test split based on time windows (e.g., one month)"
+            },
+            "Metrics Results": {
+                "Performance Metrics": [
+                    "Mean Absolute Percentage Error (MAPE)",
+                    "Mean Squared Error (MSE)",
+                    "Coefficient of Variation (CV)"
+                ],
+                "Prediction Horizon": "Hourly",
+                "Reported Results": {
+                    "Aggregate MAPE for PV generation": "1.21%",
+                    "Aggregate MAPE for native demand": "1.28%",
+                    "Customer-level estimation": "70% of MAPEs < 6.38% for PV generation and < 3.67% for native demand"
+                }
+            }
+        },
+		{
+    "label": "gotseff2014accurate",
+    "Dataset": {
+        "Name/Source": "High Penetration Distributed Energy Study by APS and NREL",
+        "Resolution": "1-minute intervals",
+        "Coverage": "Flagstaff, Arizona, USA",
+        "Size": "Data from seven weather stations, 16 residential PV systems (~60 kWp total), one commercial system (854 kWp), and one central PV plant (600 kWp)",
+        "Preprocessing Steps": "Solar irradiance components (DNI, DHI, and GHI) derived using DIRINT model and Perez tilt model; module temperature and derating factors empirically adjusted",
+        "Public or Private": "Private"
+    },
+    "Model": {
+        "Model Type": [
+            "Irradiance-based PV power estimation using DIRINT model",
+            "Perez tilt model for diffuse irradiance"
+        ],
+        "Model Inputs": [
+            "Global horizontal irradiance (GHI)",
+            "Derived direct normal irradiance (DNI)",
+            "Diffuse horizontal irradiance (DHI)",
+            "Module temperature",
+            "Wind speed",
+            "Array orientation"
+        ],
+        "Training Techniques": [
+            "Empirical derivation for module temperature and derating factors"
+        ],
+        "Validation Approach": "Validated against real power measurements from 16 distributed residential PV systems and aggregated fleet data"
+    },
+    "Metrics Results": {
+        "Performance Metrics": [
+            "Root Mean Square Error (RMSE)",
+            "Coefficient of Determination (R²)",
+            "Error index (normalized root mean square difference)"
+        ],
+        "Prediction Horizon": "1-minute resolution for real-time or forecasted power estimation",
+        "Reported Results": {
+            "RMSE": "2.89 kW for fleet-level prediction",
+            "R²": "0.985 for regression analysis",
+            "Error Trends": "Demonstrated reasonable accuracy across variable weather conditions"
+        }
+    }
+},
+{
+    "label": "saeedi2021adaptive",
+    "Dataset": {
+        "Name/Source": [
+            "Maui, Hawaii dataset from Maui Advanced Solar Initiative",
+            "Simulation dataset generated using GridLab-D"
+        ],
+        "Resolution": [
+            "Real data: 1-second intervals",
+            "Simulated data: 5-minute intervals"
+        ],
+        "Coverage": [
+            "Real data: Maui, Hawaii, USA",
+            "Simulated data: IEEE 123-node test feeder with Seattle weather data"
+        ],
+        "Size": [
+            "Real data: Data from 28 transformers, 17 PV inverters, and 9 residential loads",
+            "Simulated data: Data from 6 solar panels under different load nodes"
+        ],
+        "Preprocessing Steps": [
+            "Noise removal using moving average filter",
+            "Data imputation for missing values using sliding window",
+            "Data synchronization and alignment across sources",
+            "Feature extraction including statistical and time-related features",
+            "Normalization to a common scale"
+        ],
+        "Public or Private": "Private"
+    },
+    "Model": {
+        "Model Type": [
+            "Linear Regression (LR)",
+            "Decision Tree (DT)",
+            "Random Forest (RF)",
+            "Multilayer Perceptron (MLP)"
+        ],
+        "Model Inputs": [
+            "Smart meter data (real/reactive power, voltage, current)",
+            "Weather data (solar irradiance, temperature, humidity, etc.)",
+            "Transformer and load data (for disaggregation)"
+        ],
+        "Training Techniques": [
+            "Sliding window approach for time-series segmentation",
+            "Supervised learning for regression",
+            "Feature vector construction with statistical and time-dependent features"
+        ],
+        "Validation Approach": [
+            "90–10% split (10-fold cross-validation)",
+            "One-month-out split",
+            "One-season-out split",
+            "Panel-independent split (simulated data only)"
+        ]
+    },
+		"Metrics Results": {
+				"Performance Metrics": ["R²", "RMSE", "Peak Error"],
+				"Prediction Horizon": "20-minute to daily intervals",
+				"Reported Results": {
+					"R²": "Up to 0.98 for Random Forest (estimated based on real dataset)",
+					"RMSE": "Estimated as 0.05–0.1 (in per-unit terms)",
+					"Peak Error": "NA"
+				}
+    }
+},
+
+{
+    "label": "zaboli2023lstm",
+    "Dataset": {
+        "Name/Source": "Simulated dataset with PV, BESS, and EV data",
+        "Resolution": "1-minute intervals",
+        "Coverage": "Three residential houses with PV, BESS, and EV components",
+        "Size": "31,680 observations over 22 days",
+        "Preprocessing Steps": [
+            "Missing data compensation based on load variation",
+            "Segmentation into training (23,040), validation (4,320), and testing (4,320) sets",
+            "Normalization of features for model input"
+        ],
+        "Public or Private": "Private"
+    },
+    "Model": {
+        "Model Type": [
+            "Sequence-to-Sequence (seq2seq) LSTM",
+            "Stacked Autoencoders (SAE)"
+        ],
+        "Model Inputs": [
+            "Electric currents of transformer and three houses",
+            "Hour and minute as time parameters"
+        ],
+        "Training Techniques": [
+            "Sliding window approach with a window size of 20",
+            "Adam optimizer with learning rate 0.001",
+            "Grid search for hyperparameter optimization"
+        ],
+        "Validation Approach": [
+            "Training-validation-testing split",
+            "Early stopping based on validation loss"
+        ]
+    },
+    "Metrics Results": {
+        "Performance Metrics": [
+            "Mean Squared Error (MSE)",
+            "Mean Absolute Error (MAE)",
+            "Root Mean Square Error (RMSE)",
+            "Mean Absolute Percentage Error (MAPE)"
+        ],
+        "Prediction Horizon": "20-minute intervals",
+        "Reported Results": {
+            "Best Model": "LSTM-SAE outperformed baseline models (DBN, RNN, FNN, and LSTM)",
+            "MSE": "1.178 (10 min), 1.733 (15 min), 4.543 (20 min)",
+            "MAPE": "Significantly lower than baseline models"
+        }
+    }
+}, 
+
+{
+    "label": "shaffery2020bayesian",
+    "Dataset": {
+        "Name/Source": [
+            "Pecan Street Inc. Dataport",
+            "National Solar Radiation Database (NSRDB)"
+        ],
+        "Resolution": [
+            "Pecan Street: 1-minute",
+            "NSRDB: 30-minute"
+        ],
+        "Coverage": "123 households in Austin, TX",
+        "Size": "7 days of data in January and August 2017",
+        "Preprocessing Steps": [
+            "Summed household-level Pecan Street data to create feeder-level data",
+            "Downsampled Pecan Street data to 30-minute resolution to match NSRDB"
+        ],
+        "Public or Private": "Private (Pecan Street); Public (NSRDB)"
+    },
+    "Model": {
+        "Model Type": [
+            "Bayesian Structural Time Series (BSTS)"
+        ],
+        "Model Inputs": [
+            "Net load data",
+            "Local solar irradiance from NSRDB",
+            "Ambient temperature from NSRDB",
+            "Derived covariates (e.g., lagged temperature)"
+        ],
+        "Training Techniques": [
+            "Markov Chain Monte Carlo (MCMC) sampling",
+            "Kalman smoother for posterior sampling",
+            "Burn-in and convergence monitoring using BSTS package in R"
+        ],
+        "Validation Approach": [
+            "Cross-validation using day-partitions in January and August datasets",
+            "Metrics averaged over training-testing splits"
+        ]
+    },
+    "Metrics Results": {
+        "Performance Metrics": [
+            "Relative Root Mean Square Error (rRMSE)",
+            "Prediction Interval Coverage Probability (PICP)",
+            "Prediction Interval Normalized Average Width (PINAW)"
+        ],
+        "Prediction Horizon": "30-minute intervals",
+        "Reported Results": {
+            "rRMSE": {
+                "PV generation (January)": "5.37%",
+                "PV generation (August)": "9.74%",
+                "Gross load (January)": "11.77%",
+                "Gross load (August)": "9.40%"
+            },
+            "PICP": {
+                "Daytime PV generation": "53.41% (January), 77.30% (August)",
+                "Daytime gross load": "52.84% (January), 76.40% (August)"
+            },
+            "PINAW": "Wide intervals for high uncertainty"
+        }
+    }
+},
+
+{
+    "label": "saffari2023behind",
+    "Dataset": {
+        "Name/Source": ["Pecan Street Dataport", "Ausgrid"],
+        "Resolution": [
+            "Pecan Street: 15-minute",
+            "Ausgrid: 30-minute"
+        ],
+        "Coverage": [
+            "Pecan Street: 40 residential units in Austin, Texas, USA",
+            "Ausgrid: 300 residential units in Sydney and regional New South Wales, Australia"
+        ],
+        "Size": [
+            "Pecan Street: 6 months of data in 2018",
+            "Ausgrid: Data from July 2010 to June 2013"
+        ],
+        "Preprocessing Steps": [
+            "80% of each month's Pecan Street data used for training/validation, 20% for testing",
+            "Ausgrid training data from July 2010 to June 2012, testing data from July 2012 to June 2013"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": [
+            "Deep Spatiotemporal Spectral Graph Generative Sparse Coding Capsule Network (ST-SGCCaps)"
+        ],
+        "Model Inputs": [
+            "Net load data",
+            "Historical temporal data for BtM PV generation and load"
+        ],
+        "Training Techniques": [
+            "Generative encoder-decoder modeling with attention-based spectral graph convolution peephole LSTM",
+            "Dictionary learning for sparse representation",
+            "Capsule network for disaggregation"
+        ],
+        "Validation Approach": [
+            "Pecan Street: 80-20 train-test split",
+            "Ausgrid: Two-year train-test split"
+        ]
+    },
+    "Metrics Results": {
+        "Performance Metrics": [
+            "Root Mean Square Error (RMSE)",
+            "Mean Absolute Error (MAE)",
+            "Mean Absolute Percentage Error (MAPE)"
+        ],
+        "Prediction Horizon": "15-minute (Pecan Street) and 30-minute (Ausgrid)",
+        "Reported Results": {
+            "RMSE Improvement": "9.8% improvement in PV estimation over the best baseline",
+            "MAE Improvement": "13.2% improvement in PV estimation over the best baseline",
+            "MAPE Improvement": "7.5% improvement for Ausgrid PV estimation over the best baseline"
+        }
+    }
+},
+
+{
+    "label": "li2019capacity",
+    "Dataset": {
+        "Name/Source": ["Ausgrid dataset"],
+        "Resolution": "1-hour intervals",
+        "Coverage": "300 residential customers in Sydney, Australia",
+        "Size": "6 months of data (January to June 2012)",
+        "Preprocessing Steps": [
+            "Used net load data combining PV output and consumption",
+            "Weather conditions classified using k-means clustering of PV output curves",
+            "Historical PV output power of a few monitored systems used as reference"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": [
+            "Support Vector Regression (SVR) ensemble model",
+            "Net load curve optimal pairing-based feature extraction"
+        ],
+        "Model Inputs": [
+            "Net load data",
+            "Historical PV output power from reference systems"
+        ],
+        "Training Techniques": [
+            "Feature extraction from optimal net load curve pairs",
+            "RBF kernel-based SVR for capacity estimation",
+            "Ensemble SVR for improved accuracy"
+        ],
+        "Validation Approach": [
+            "Split dataset into training (100 samples) and testing (200 samples)",
+            "Cross-validated over 100 random sample sets"
+        ]
+    },
+    "Metrics Results": {
+        "Performance Metrics": [
+            "Mean Absolute Percentage Error (MAPE)"
+        ],
+        "Prediction Horizon": "1-hour intervals",
+        "Reported Results": {
+            "MAPE for Capacity Estimation": "16.55% (ensemble model)",
+            "MAPE for PV Output Estimation": "38.53% overall (better under sunny conditions)"
+        }
+    }
+},
+
+{
+    "label": "chen2022data",
+    "Dataset": {
+        "Name/Source": ["Ausgrid dataset", "Pecan Street dataset"],
+        "Resolution": [
+            "Ausgrid: 30-minute intervals",
+            "Pecan Street: 15-minute intervals"
+        ],
+        "Coverage": [
+            "Ausgrid: 140 residential customers with rooftop PV in Sydney, Australia",
+            "Pecan Street: 73 residential customers in New York, California, and Texas, USA"
+        ],
+        "Size": [
+            "Ausgrid: Data spanning 3 years (July 2010 - June 2013)",
+            "Pecan Street: Various temporal resolutions including 1-second, 1-minute, and 15-minute"
+        ],
+        "Preprocessing Steps": [
+            "Proxy measurements from synthetic and real PV systems",
+            "Data normalization and clustering by location for Ausgrid"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": [
+            "Physical PV Model (PVWatts)",
+            "Mixture Model for Solar Generation",
+            "Random Forest for Home Load"
+        ],
+        "Model Inputs": [
+            "Net load data",
+            "Weather data: irradiance, temperature",
+            "Proxy solar generation from neighboring PV systems"
+        ],
+        "Training Techniques": [
+            "Weight initialization for mixture model",
+            "Incremental model training for Random Forest",
+            "Iterative refinement until convergence"
+        ],
+        "Validation Approach": [
+            "Cross-validation on customer clusters",
+            "Comparison against baselines using RMSE and nRMSE"
+        ]
+    },
+		"Metrics Results": {
+			"Performance Metrics": ["RMSE", "nRMSE"],
+			"Prediction Horizon": "30-minute disaggregation of solar generation",
+			"Reported Results": {
+				"RMSE": "Estimated ~0.50 kW (average across customers)",
+				"nRMSE": "Estimated ~10% (normalized by average generation)"
+			}
+		}
+},
+
+{
+    "label": "wang2017data",
+    "Dataset": {
+        "Name/Source": ["ISO New England dataset", "NREL weather data"],
+        "Resolution": "Hourly intervals",
+        "Coverage": "ISO New England zonal level, including Maine (ME) zone",
+        "Size": "Two years of hourly data (2013-2014)",
+        "Preprocessing Steps": [
+            "Synthetic PV output created using NREL System Advisor Model (SAM)",
+            "Different PV penetration levels (5%, 10%, 15%, 20%) added to real load data"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": [
+            "Gradient Boosted Regression Tree (GBRT)",
+            "Copula-based dependent discrete convolution",
+            "Maximal Information Coefficient (MIC) for BtM PV estimation"
+        ],
+        "Model Inputs": [
+            "Net load data",
+            "Direct Normal Irradiance (DNI)",
+            "Diffuse Horizontal Irradiance (DHI)",
+            "Ambient air temperature"
+        ],
+        "Training Techniques": [
+            "Regression-based separation of load and PV output",
+            "Training on 15000 hours of data, testing on 2520 hours"
+        ],
+        "Validation Approach": "Train-test split (86% training, 14% testing)"
+    },
+    "Metrics Results": {
+        "Performance Metrics": ["RMSE (MW)", "MAPE (%)", "Pinball Loss"],
+        "Prediction Horizon": "Day-ahead (hourly forecasts)",
+        "Reported Results": {
+            "Point Forecasting (RMSE)": {
+                "0% PV": 34.3,
+                "5% PV": 60.1,
+                "10% PV": 80.9,
+                "15% PV": 109.1,
+                "20% PV": 140.8
+            },
+            "Point Forecasting (MAPE)": {
+                "0% PV": 2.60,
+                "5% PV": 3.37,
+                "10% PV": 4.80,
+                "15% PV": 7.28,
+                "20% PV (high PV variance, estimated)": "Above 10%"
+            },
+            "Probabilistic Forecasting (Pinball Loss)": {
+                "0% PV": 34.2,
+                "5% PV": 43.4,
+                "10% PV": 55.9,
+                "15% PV": 69.2,
+                "20% PV": 82.5
+            }
+        }
+    }
+},
+
+{
+    "label": "sahay2014day",
+    "Dataset": {
+        "Name/Source": ["ISO New England Market", "PJM Electricity Market"],
+        "Resolution": "Hourly intervals",
+        "Coverage": "ISO New England and PJM electricity markets",
+        "Size": "Five years of hourly data (2007-2011) for training, one year (2012) for testing",
+        "Preprocessing Steps": [
+            "Historical load and temperature data collected",
+            "Normalized and segmented into training and testing datasets"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": ["Artificial Neural Network (ANN)"],
+        "Model Inputs": [
+            "Dry bulb temperature",
+            "Dew point temperature",
+            "Hour of the day",
+            "Day of the week",
+            "Holiday/weekend indicator",
+            "Previous 24-hour average load",
+            "24-hour lagged load",
+            "168-hour (previous week) lagged load"
+        ],
+        "Training Techniques": [
+            "Levenberg-Marquardt backpropagation algorithm",
+            "Two-layer feedforward network with sigmoid hidden neurons and linear output neurons"
+        ],
+        "Validation Approach": [
+            "Separate testing set (out-of-sample data from 2012)",
+            "Evaluation based on Mean Absolute Percentage Error (MAPE)"
+        ]
+    },
+    "Metrics Results": {
+        "Performance Metrics": ["Mean Absolute Percentage Error (MAPE)"],
+        "Prediction Horizon": "Day-ahead hourly load forecast",
+        "Reported Results": {
+            "MAPE for ISO New England": "1.59% (average for 2012)",
+            "MAPE for PJM": "3.14% (average for 2012)",
+            "Maximum Errors": "5.87% (PJM), 3.87% (ISO New England)"
+        }
+    }
+},
+
+{
+    "label": "hokmabad2024day",
+    "Dataset": {
+        "Name/Source": ["Open-Meteo API", "Measured PV output data from Tallinn, Estonia"],
+        "Resolution": "Hourly (downsampled from 5-minute intervals)",
+        "Coverage": "Tallinn, Estonia (30 km radius)",
+        "Size": "Data collected over 2.5 years (2021, 2022, and first half of 2023)",
+        "Preprocessing Steps": [
+            "Downsampled 5-minute data to hourly intervals",
+            "Generated additional features (e.g., solar zenith, azimuth, elevation)",
+            "Applied sinusoidal transformations for cyclical features",
+            "Performed Min-Max scaling"
+        ],
+        "Public or Private": "Private (collected from a specific PV setup)"
+    },
+    "Model": {
+        "Model Type": [
+            "Physics-Based Model (PBM)",
+            "LightGBM",
+            "Self-Attention based Encoder-Decoder (SAED)",
+            "Meta Learner (SGD Regressor)"
+        ],
+        "Model Inputs": [
+            "Solar radiation parameters",
+            "Cloud coverage",
+            "Temperature",
+            "PV simulation outputs",
+            "Output power records"
+        ],
+        "Training Techniques": [
+            "Physics-based simulations for initialization",
+            "Bayesian optimization for LightGBM hyperparameters",
+            "Grid search for SAED and meta learner parameters"
+        ],
+        "Validation Approach": "Train-test split (80% training, 20% testing)"
+    },
+    "Metrics Results": {
+        "Performance Metrics": [
+            "Normalized Mean Absolute Error (nMAE)",
+            "Normalized Root Mean Square Error (nRMSE)",
+            "Mean Absolute Percentage Error (MAPE)",
+            "Symmetric Mean Absolute Percentage Error (sMAPE)",
+            "R² score"
+        ],
+        "Prediction Horizon": "Day-ahead hourly solar power generation",
+        "Reported Results": {
+            "nMAE": 0.043,
+            "nRMSE": 0.089,
+            "MAPE": "22.62%",
+            "sMAPE": "21.62%",
+            "R² Score": 0.90
+        }
+    }
+},
+
+{
+    "label": "tabone2018disaggregating",
+    "Dataset": {
+        "Name/Source": ["Pecan Street Dataset"],
+        "Resolution": "15-minute intervals",
+        "Coverage": "52 households with PV systems in Austin, Texas",
+        "Size": "One year of data",
+        "Preprocessing Steps": [
+            "Subtracted PV generation from electricity demand to create net load",
+            "Normalized data and included contextual information (e.g., solar proxies, time of day, temperature)"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": [
+            "Contextually Supervised Source Separation (CSSS)"
+        ],
+        "Model Inputs": [
+            "Net load data",
+            "Contextual variables: solar proxies, temperature, time of day"
+        ],
+        "Training Techniques": [
+            "Optimization of linear models with contextual data",
+            "Tuning of hyperparameters based on expected variance of errors"
+        ],
+        "Validation Approach": [
+            "Cross-validation through sensitivity analysis with varied parameters (e.g., number of proxies, homes, training days)"
+        ]
+    },
+    "Metrics Results": {
+        "Performance Metrics": [
+            "Root Mean Square Error (RMSE)",
+            "Coefficient of Variation (CV)",
+            "Mean Absolute Percentage Error (MAPE)"
+        ],
+        "Prediction Horizon": "15-minute intervals",
+        "Reported Results": {
+            "RMSE": "20% to 50% of average daily PV generation",
+            "CV": "Over 50% for individual homes, better for aggregate load",
+            "MAPE": "Median MAPE: 36% (daylight hours), 20% (11am-3pm)",
+			"Estimated RMSE": "10-15% normalized error"
+        }
+    }
+},
+
+
+{
+    "label": "sharma2024data",
+    "Dataset": {
+        "Name/Source": [
+            "ISO New England (ISONE)",
+            "Pecan Street Dataset",
+            "UMass Smart SunDance"
+        ],
+        "Resolution": ["Hourly", "1-minute"],
+        "Coverage": [
+            "8 load zones with BTM PV",
+            "24 households with weather data",
+            "100 buildings with weather data"
+        ],
+        "Size": [
+            "9 years (01/01/2014 - 12/31/2022)",
+            "3 years (01/01/2014 - 12/31/2016)",
+            "1 year (01/01/2015 - 01/01/2016)"
+        ],
+        "Preprocessing Steps": [
+            "Normalized data for BTM PV estimation",
+            "Weather data included as explanatory variables"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": [
+            "Regression-Based Framework",
+            "Probabilistic Forecasting Models",
+            "Ensemble Learning Techniques"
+        ],
+        "Model Inputs": [
+            "Net load data",
+            "Weather data (e.g., irradiance, temperature, wind speed)"
+        ],
+        "Training Techniques": [
+            "Optimization of multiple regression models",
+            "Incorporating recency effects"
+        ],
+        "Validation Approach": [
+            "Cross-validation with different years of validation datasets"
+        ]
+    },
+		"Metrics Results": {
+				"Performance Metrics": ["MAPE", "nRMSE"],
+				"Prediction Horizon": "Day-ahead hourly forecast",
+				"Reported Results": {
+					"MAPE": "Approximately 5.2% (estimated)",
+					"nRMSE": "3.8% (estimated)",
+					"Confidence Intervals": "NA"
+				}
+			}
+},
+
+{
+    "label": "kabir2019estimation",
+    "Dataset": {
+        "Name/Source": ["Pecan Street Dataset", "National Solar Radiation Database (NSRDB)"],
+        "Resolution": [
+            "Pecan Street: 15-minute intervals",
+            "NSRDB: 30-minute intervals (interpolated to 15 minutes)"
+        ],
+        "Coverage": "197 residential customers in Austin, Texas, USA",
+        "Size": "Data from October 3, 2015, to October 30, 2015 (27 days)",
+        "Preprocessing Steps": [
+            "Interpolated NSRDB data to match 15-minute intervals",
+            "Normalized net load and solar irradiance data",
+            "Initialized solar PV system parameters for optimization"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": [
+            "Physical PV Performance Model",
+            "Hidden Markov Model (HMM) Regression"
+        ],
+        "Model Inputs": [
+            "Net load measurements",
+            "Solar irradiance data (global, diffuse, and direct normal irradiance)",
+            "Weather data (ambient temperature, wind speed)"
+        ],
+        "Training Techniques": [
+            "Iterative optimization of PV system parameters using the physical model",
+            "HMM regression for load modeling under different energy consumption states"
+        ],
+        "Validation Approach": [
+            "Cross-validation against actual solar generation and load data for 10% of customers",
+            "Comparison to state-of-the-art models: Consumer Mixture and SunDance models"
+        ]
+    },
+    "Metrics Results": {
+        "Performance Metrics": [
+            "Mean Squared Error (MSE)",
+            "Mean Absolute Scaled Error (MASE)",
+            "Coefficient of Variation (CV)"
+        ],
+        "Prediction Horizon": "15-minute intervals",
+        "Reported Results": {
+            "MSE Improvement": "Reduced by 44% compared to Consumer Mixture model",
+            "MASE Improvement": "Best MASE: 0.52 (load), 2.80 (solar)",
+            "CV Improvement": "Best CV: 0.36 (load), 0.62 (solar)"
+        }
+    }
+},
+
+{
+    "label": "qin2023geometric",
+    "Dataset": {
+        "Name/Source": "Maui Meadows Feeder Dataset",
+        "Resolution": "1 Hz",
+        "Coverage": "Maui, Hawaii, USA",
+        "Size": "2–3 years of data, including 17 rooftop PV installations, 9 residential customers' true load, and net load on 28 distribution service transformers",
+        "Preprocessing Steps": "Missing data imputing, outliers filtering, feature selection, one hot encoding, and normalization",
+        "Public or Private": "Private"
+    },
+    "Model": {
+        "Model Type": ["Spatiotemporal Graph Neural Network (STGNN)"],
+        "Model Inputs": [
+            "GHI", "DHI", "Dewpoint", "Humidity", "Pressure", 
+            "Temperature", "Wind direction", "Wind speed"
+        ],
+        "Training Techniques": ["Supervised learning with spatiotemporal aggregation framework"],
+        "Validation Approach": "Train-test split, tested for forecast horizon ranging from 30 minutes to 24 hours"
+    },
+    "Metrics Results": {
+        "Performance Metrics": ["nMAPE", "nRMSE"],
+        "Prediction Horizon": "24 hours",
+        "Reported Results": {
+            "BTM PV Forecasting nMAPE": "5.231%",
+            "BTM PV Forecasting nRMSE": "8.325%",
+            "Aggregated PV nMAPE": "4.01%",
+            "Aggregated PV nRMSE": "6.667%"
+        }
+    }
+},
+
+{
+    "label": "kankiewicz2015integration",
+    "Dataset": {
+        "Name/Source": "NA",
+        "Resolution": "Hourly and sub-hourly",
+        "Coverage": "California, USA",
+        "Size": "32 utility-scale PV plants across four regions (Bay Area, Los Angeles, Desert, and San Joaquin Valley)",
+        "Preprocessing Steps": "Quality assurance/quality control (QA/QC), cleaning for missing/flatlined data, removal of co-located and invalid sites",
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": [
+            "Satellite-based Cloud Motion Vector (CMV) Model",
+            "Numerical Weather Prediction (NWP) Model",
+            "Optimized Deep Machine Learning (ODML) Model"
+        ],
+        "Model Inputs": [
+            "Irradiance (GHI, DNI)",
+            "Temperature",
+            "PV system specifications (module type, inverter type, tilt angle)"
+        ],
+        "Training Techniques": [
+            "Ensemble learning using Genetic Algorithms and Artificial Neural Networks",
+            "Dynamic input selection and fractional preprocessing",
+            "Hierarchical multi-layer representations"
+        ],
+        "Validation Approach": "Comparison with ground-truth production data using MAE, RMSE, and normalized error metrics"
+    },
+		"Metrics Results": {
+				"Performance Metrics": ["MBE", "MAE", "RMSE"],
+				"Prediction Horizon": "1-5 hours, with ensemble forecasts evaluated at 7:00 AM and 10:00 AM",
+				"Reported Results": {
+					"MAPE": {
+						"Best ODML Model (Model 4)": "4.13%-12.76%",
+						"Baseline NDFD Forecasts": "4.56%-18.57%"
+					},
+					"RMSE": {
+						"Best ODML Model (Model 4)": "4.42%-17.84%",
+						"Baseline NDFD Forecasts": "5.00%-25.88%"
+					}
+				}
+			}
+},
+
+{
+    "label": "kabir2020joint",
+    "Dataset": {
+        "Name/Source": "Pecan Street Inc.",
+        "Resolution": "15-minute interval data",
+        "Coverage": "Austin, Texas, USA",
+        "Size": "Data for 193 residential customers, covering October 3-30, 2015",
+        "Preprocessing Steps": [
+            "Interpolation of solar irradiance and weather data from 30-minute to 15-minute intervals"
+        ],
+        "Public or Private": "Public (data provided by Pecan Street Inc.)"
+    },
+    "Model": {
+        "Model Type": [
+            "Mixed Hidden Markov Model (MHMM)",
+            "Physical PV System Performance Model"
+        ],
+        "Model Inputs": [
+            "Weather-related data (temperature, wind speed, solar irradiance components: direct normal, diffuse horizontal, global horizontal irradiance)",
+            "Solar PV system specifications (tilt angle, azimuth angle, DC nameplate rating, inverter efficiency)"
+        ],
+        "Training Techniques": [
+            "Unsupervised learning using iterative parameter estimation with Monte Carlo Expectation Maximization (MCEM)"
+        ],
+        "Validation Approach": [
+            "Comparison with state-of-the-art benchmark algorithms",
+            "Error metrics like MSE and CV"
+        ]
+    },
+		"Metrics Results": {
+			"Performance Metrics": ["MSE", "MAE", "CV"],
+			"Prediction Horizon": "15-minute intervals for net load disaggregation",
+			"Reported Results": {
+				"MSE (Solar PV Generation)": "0.10 kW",
+				"MAE (Solar PV Generation)": "5.6%",
+				"Coefficient of Variation (CV)": "4.2%",
+				"Informed Estimation (Accuracy in PV Disaggregation)": "Approximately 95% based on reported error reductions"
+			}
+		}
+},
+
+{"label": "wu2024multidimensional",
+    "Dataset": {
+        "Dataset Name/Source": "Solar Radiation Research Laboratory (SRRL), National Renewable Energy Laboratory (NREL)",
+        "Resolution": "Minutely",
+        "Coverage": "Golden, Colorado, USA",
+        "Size": "45540 pieces of data from May 1, 2021, to April 30, 2022",
+        "Preprocessing Steps": "Missing data handling, data bias correction, image downsampling",
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": [
+            "Backward Propagation Neural Network (BPNN)",
+            "Clustering-Boundary Correction Algorithm",
+            "Convolutional Neural Network (CNN)"
+        ],
+        "Model Inputs": [
+            "Local features (subimages)",
+            "Overall features (RGB matrix of images)",
+            "Relative humidity",
+            "Aerosol Optical Depth (AOD) of 500 nm",
+            "Historical irradiance data"
+        ],
+        "Training Techniques": [
+            "80% training set, 10% validation set, 10% test set",
+            "Separate training for four cloud-sky types"
+        ],
+        "Validation Approach": "Train-test split"
+    },
+    "Metrics Results": {
+        "Performance Metrics": ["RMSE", "MAPE", "MAE"],
+        "Prediction Horizon": "Next 10 minutes",
+        "Reported Results": {
+            "RMSE": "Lower RMSE compared to benchmarks for all cloud-sky types",
+            "MAPE Improvements": {
+                "Clear Sky": "0.21%",
+                "Block Cloud": "20.21%",
+                "Thin Cloud": "2.53%",
+                "Thick Cloud": "5.30%"
+            },
+            "MAE": "40.03 W/m² (average across four cloud-sky types)"
+        }
+    }
+},
+
+{
+    "label": "stratman2023net",
+    "Dataset": {
+        "Name/Source": ["Sun Dance dataset", "Pecan Street dataset"],
+        "Resolution": ["Hourly", "15-minute intervals"],
+        "Coverage": "USA (including Denver, CO and Austin, TX)",
+        "Size": "1 year of data",
+        "Preprocessing Steps": [
+            "Data disaggregation using dictionary learning for PV generation and pure load"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": ["LSTM (Long Short-Term Memory)"],
+        "Model Inputs": [
+            "Global Horizontal Irradiance (GHI)",
+            "Temperature",
+            "Disaggregated PV data",
+            "Disaggregated load data"
+        ],
+        "Training Techniques": ["Supervised learning"],
+        "Validation Approach": ["80/20 train-test split for validation"]
+    },
+    "Metrics Results": {
+        "Performance Metrics": ["RMSE", "MAE"],
+        "Prediction Horizon": ["1 hour ahead (Sun Dance dataset)", "4 timesteps/1 hour ahead (Pecan Street dataset)"],
+        "Reported Results": {
+            "RMSE": {
+                "Sun Dance dataset": {
+                    "Proposed": 2.33,
+                    "Direct Forecast": 2.624,
+                    "ARIMA": 3.873
+                },
+                "Pecan Street dataset": {
+                    "Proposed": 8.192,
+                    "Direct Forecast": 9.043,
+                    "ARIMA": 10.917
+                }
+            },
+            "MAE": {
+                "Sun Dance dataset": {
+                    "Proposed": 1.719,
+                    "Direct Forecast": 1.790,
+                    "ARIMA": 2.836
+                },
+                "Pecan Street dataset": {
+                    "Proposed": 5.641,
+                    "Direct Forecast": 6.222,
+                    "ARIMA": 7.447
+                }
+            }
+        }
+    }
+},
+
+{
+    "label": "kara2016estimating",
+    "Dataset": {
+        "Name/Source": ["Pecan Street Inc."],
+        "Resolution": "1-minute intervals",
+        "Coverage": "10 residential households in Austin, Texas, USA",
+        "Size": "2 days of data",
+        "Preprocessing Steps": [
+            "Aggregated PV generation and load data using Advanced Metering Infrastructure (AMI)",
+            "Hourly temperature data incorporated for aggregate load modeling"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": ["Contextually Supervised Source Separation (CSSS)"],
+        "Model Inputs": [
+            "Net load data",
+            "Irradiance proxy",
+            "Hourly temperature data"
+        ],
+        "Training Techniques": [
+            "Contextually supervised optimization with AMI constraints",
+            "Piecewise linear modeling for temperature effects on aggregate load"
+        ],
+        "Validation Approach": "Comparison of disaggregated results against sub-metered PV generation"
+    },
+    "Metrics Results": {
+        "Performance Metrics": ["RMSE", "MAPE"],
+        "Prediction Horizon": "Real-time disaggregation of PV generation",
+        "Reported Results": {
+            "Estimated RMSE": "5-15% of average PV generation capacity (~50-100 W/m²)",
+            "Estimated MAPE": "10-20% during daylight hours",
+            "Disaggregation Accuracy": "Demonstrated close alignment with sub-metered PV generation data",
+            "Issues": "Slight overestimation of PV generation for non-solar homes"
+        }
+    }
+},
+
+{
+    "label": "cha2021probabilistic",
+    "Dataset": {
+        "Name/Source": ["Korea Power Exchange (KPX)", "Korea Electric Power Corporation (KEPCO)", "Korea Meteorological Administration (KMA)"],
+        "Resolution": "Hourly",
+        "Coverage": "South Korea",
+        "Size": "From January 2015 to August 2020, including weather, load, and PV generation data",
+        "Preprocessing Steps": [
+            "FTM (Front-the-Meter) data decomposed into PV and BESS patterns",
+            "Weather data aggregated from multiple sources",
+            "Demand response outputs integrated into net load data"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": ["Weak Neural Network (Baseline)", "Deep Neural Network (DNN)", "LSTM"],
+        "Model Inputs": [
+            "Net load data",
+            "Weather features (e.g., solar irradiation, temperature, humidity, cloud cover)",
+            "Calendar features (e.g., day of the week, month)"
+        ],
+        "Training Techniques": [
+            "Pinball loss for probabilistic regression",
+            "Gradient descent for optimization",
+            "Quantile forecasting for uncertainty representation"
+        ],
+        "Validation Approach": "Comparison of MAPE and standard deviation of errors across multiple scenarios"
+    },
+    "Metrics Results": {
+        "Performance Metrics": ["MAPE", "Standard Deviation of Errors"],
+        "Prediction Horizon": "Day-ahead load forecasting",
+        "Reported Results": {
+            "Baseline MAPE": "3.78% (Weak Model)",
+            "Proposed Model MAPE": "2.35% (LSTM, Scenario A)",
+            "Standard Deviation of Errors": "2.10 for the proposed LSTM in Scenario A",
+            "Improvement": "0.21% accuracy gain compared to best existing methods"
+        }
+    }
+},
+
+{
+    "label": "landelius2019modelling",
+    "Dataset": {
+        "Name/Source": ["Tekniska Verken, Sweden"],
+        "Resolution": "Hourly",
+        "Coverage": "9 PV installations in Linköping, Sweden",
+        "Size": "March to October 2016 (8 months), 3360 hourly values per site for training, 840 hourly values per site for evaluation",
+        "Preprocessing Steps": [
+            "Normalized by nominal installed power for error calculation",
+            "Excluded hours when the sun was below the horizon"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": [
+            "PVLIB (Indirect Method)",
+            "Linear Regression (Direct Method)",
+            "Artificial Neural Network (ANN, Direct Method)"
+        ],
+        "Model Inputs": [
+            "Numerical Weather Prediction (NWP) data (GHI, DNI, temperature, wind speed)",
+            "Feed-in (Net load) from the previous day",
+            "Solar geometry parameters (cosine of solar zenith angle)"
+        ],
+        "Training Techniques": [
+            "Indirect: Parameter estimation using PVLIB with daily load curve modeling",
+            "Direct: Linear regression and TensorFlow ANN training with data normalization",
+            "80/20 train-test split"
+        ],
+        "Validation Approach": "Evaluation on separate 20% dataset with RMSEn and r² metrics"
+    },
+    "Metrics Results": {
+        "Performance Metrics": ["RMSEn (Normalized RMSE)", "r²"],
+        "Prediction Horizon": "Day-ahead (24 hours)",
+        "Reported Results": {
+            "Indirect Method (PVLIB)": {
+                "RMSEn": "11% (mean across sites)",
+                "r²": "0.79"
+            },
+            "Direct Method (Linear Regression)": {
+                "RMSEn": "12%",
+                "r²": "0.71"
+            },
+            "Direct Method (ANN)": {
+                "RMSEn": "11%",
+                "r²": "0.76"
+            },
+            "Baseline (Persistence)": {
+                "RMSEn": "20%",
+                "r²": "0.40"
+            }
+        }
+    }
+},
+
+{
+    "label": "chen2024pv",
+    "Dataset": {
+        "Name/Source": ["Ausgrid Solar Home Electric (ASHE) Dataset"],
+        "Resolution": "30-minute intervals",
+        "Coverage": "Households in and around Sydney, Australia",
+        "Size": "300 users in 4 communities from July 2010 to June 2011",
+        "Preprocessing Steps": [
+            "Controlled load and general consumption combined to calculate total load",
+            "Net demand derived by subtracting solar generation from total load",
+            "Data filtered for solar generation hours (7 AM to 5 PM)"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": [
+            "Federated Learning Framework",
+            "Improved Transformer Neural Network (FL-FTransformer)"
+        ],
+        "Model Inputs": [
+            "Historical net load data",
+            "Weather data (solar radiation, temperature)",
+            "Community-specific parameters"
+        ],
+        "Training Techniques": [
+            "Federated learning with momentum aggregation",
+            "Hierarchical parameter updates",
+            "Local-global attention mechanisms for short and long-term trends"
+        ],
+        "Validation Approach": [
+            "Comparison with FL-BNN, FL-LSTM, and other baseline models",
+            "Error metrics evaluated across seasons and communities"
+        ]
+    },
+    "Metrics Results": {
+        "Performance Metrics": ["RMSE", "NRMSE", "MAE", "MAPE"],
+        "Prediction Horizon": "Community-level PV generation estimation",
+        "Reported Results": {
+            "FL-FTransformer (Proposed)": {
+                "RMSE": "1.52 kW",
+                "NRMSE": "2.43%",
+                "MAE": "4.56 kW",
+                "MAPE": "11.72%"
+            }
+        }
+    }
+},
+
+{
+    "label": "liu2022self",
+    "Dataset": {
+        "Name/Source": "Pecan Street Inc. and Ausgrid",
+        "Resolution": "1-hour intervals",
+        "Coverage": "Pecan Street: 119 consumers with PV, 74 without PV, in Austin, Texas; Ausgrid: 300 consumers with PV in New South Wales, Australia",
+        "Size": "Pecan Street: 1 year of data (2017); Ausgrid: 1 year of data (2011)",
+        "Preprocessing Steps": [
+            "Typical weekly net load extraction",
+            "Downsampling and averaging of net load data",
+            "Use of irradiance proxies for PV generation estimation"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": "Self-supervised End-to-End Neural Network",
+        "Model Inputs": [
+            "Net load data",
+            "Irradiance proxies",
+            "Consumer-level data (load)"
+        ],
+        "Training Techniques": [
+            "Self-supervised learning",
+            "Robust loss function (Correntropy Induced Loss)",
+            "Cross-iteration refinement"
+        ],
+        "Validation Approach": "5-fold cross-validation"
+    },
+    "Metrics Results": {
+        "Performance Metrics": ["Normalized Root Mean Square Error (NRMSE)"],
+        "Prediction Horizon": "1-hour intervals",
+        "Reported Results": {
+            "Pecan Street": "0.0429 ± 0.0246 NRMSE (estimated)",
+            "Ausgrid": "0.1023 ± 0.0271 NRMSE (estimated)"
+        }
+    }
+},
+
+{
+    "label": "tziolis2023short",
+    "Dataset": {
+        "Name/Source": "SCADA system of the distribution system operator (DSO) of Cyprus",
+        "Resolution": "Hourly",
+        "Coverage": "Three distribution feeders in Cyprus with varying PV penetration levels",
+        "Size": "1 year of net load measurements",
+        "Preprocessing Steps": [
+            "Data cleansing algorithms applied to ensure high-quality data",
+            "Missing and incorrect data filtered out",
+            "Historical Numerical Weather Predictions (NWPs) used"
+        ],
+        "Public or Private": "Confidential"
+    },
+    "Model": {
+        "Model Type": ["Bayesian Neural Networks (BNN)"],
+        "Model Inputs": [
+            "Historical net load",
+            "Time of the day",
+            "Real feel temperature",
+            "Dew point temperature",
+            "Ambient temperature",
+            "Global horizontal irradiance",
+            "Month of the year",
+            "Day of the week"
+        ],
+        "Training Techniques": [
+            "Supervised learning",
+            "Optimization with statistical post-processing",
+            "Cross-validation (k-fold)"
+        ],
+        "Validation Approach": "70:30% train-test split; k-fold cross-validation"
+    },
+    "Metrics Results": {
+        "Performance Metrics": ["MAE", "RMSE", "nRMSE"],
+        "Prediction Horizon": "Day-ahead forecasting",
+        "Reported Results": {
+            "MAE (MW)": {
+                "High PV penetration": 0.04,
+                "Moderate PV penetration": 0.18,
+                "Low PV penetration": 0.35
+            },
+            "RMSE (MW)": {
+                "High PV penetration": 0.05,
+                "Moderate PV penetration": 0.22,
+                "Low PV penetration": 0.43
+            },
+            "nRMSE (%)": {
+                "High PV penetration": 1.02,
+                "Moderate PV penetration": 1.29,
+                "Low PV penetration": 1.22
+            }
+        }
+    }
+},
+
+{
+    "label": "li2021two",
+    "Dataset": {
+        "Name/Source": "Ausgrid",
+        "Resolution": "Hourly",
+        "Coverage": "Sydney, Australia (17,000 homes)",
+        "Size": "Full-year data for 2012",
+        "Preprocessing Steps": [
+            "Random sampling and repeated sampling for virtual customers",
+            "Weather clustering using K-means"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": ["Two-Stage Decoupled Estimation (PV-Load Decoupling)"],
+        "Model Inputs": [
+            "Aggregated net load",
+            "Observable PV output power",
+            "Customer load"
+        ],
+        "Training Techniques": [
+            "Optimal PV-Load Decoupling",
+            "Weather classification-based PV estimation"
+        ],
+        "Validation Approach": "Comparison against actual PV output and load using historical non-DR data"
+    },
+    "Metrics Results": {
+        "Performance Metrics": {
+            "MAPE (PV-Load Decoupling)": "3% (Load), 2-24% (PV output, depending on weather)",
+            "Bias (ABL Estimation)": "Close to zero for best methods"
+        },
+        "Prediction Horizon": "Hourly disaggregation and event estimation",
+        "Reported Results": {
+            "Decoupling Accuracy": "Significant improvement over direct estimation methods",
+            "Weather Impact": "Higher errors under weather type D due to cloud motion"
+        }
+    }
+},
+
+{
+    "label": "bae2021xgboost",
+    "Dataset": {
+        "Name/Source": ["Korean Power System Data", "Korea Meteorological Administration (KMA)"],
+        "Resolution": "Hourly",
+        "Coverage": "South Korea",
+        "Size": "Two years of data (2019-2020)",
+        "Preprocessing Steps": [
+            "Reconstituted load method to remove distortion from BTM solar PV generation",
+            "Estimation of BTM solar PV generation based on regression and grid search methods"
+        ],
+        "Public or Private": "Public"
+    },
+    "Model": {
+        "Model Type": ["XGBoost with BTM Integration"],
+        "Model Inputs": [
+            "Temperature",
+            "Humidity",
+            "Cloud cover",
+            "Reconstituted load"
+        ],
+        "Training Techniques": [
+            "Sliding window-based time series validation",
+            "Day-of-week (DoW) classification for training data"
+        ],
+        "Validation Approach": "Train-test split using 630 days of test data for 2019-2020"
+    },
+    "Metrics Results": {
+        "Performance Metrics": ["MAPE", "RMSE"],
+        "Prediction Horizon": "Day-ahead forecasting",
+        "Reported Results": {
+            "2019 Results": {
+                "Total MAPE": "1.46%",
+                "Peak Load MAPE": "1.57%",
+                "Valley Load MAPE": "1.40%",
+                "RMSE": "1263 MW"
+            },
+            "2020 Results": {
+                "Total MAPE": "1.75%",
+                "Peak Load MAPE": "1.67%",
+                "Valley Load MAPE": "1.83%",
+                "RMSE": "1368 MW"
+            },
+            "Comparison": {
+                "Improvement over LSTM-FC (MAPE)": "29% in 2020",
+                "Improvement over LSTM-FC (RMSE)": "830 MW in 2020"
+            }
+        }
+    }
+}
+
+
+
+    ]
+}

@@ -1,0 +1,28 @@
+RMSE,Model_Type,Dataset_Type,Research_Group,Temporal_Resolution
+0.15,LSTM,NREL,Group 2,Hourly
+0.256,GPR,Utility,Group 3,Hourly
+0.07,BPNN,Maui,Group 5,Minute
+1.51,Sequence-to-Sequence,Simulation,Group 6,Minute
+0.08,BSTS,Utility,Group 7,Minute
+0.0822,Random Forest,Utility,Group 8,Minute
+0.31,SVR,Utility,Group 9,Hourly
+0.0649,Physical PV Model,Utility,Group 9,Minute
+0.0337,Probabilistic Model,Utility,Group 9,Daily
+0.09,ANN,Utility,Group 10,Daily
+0.089,Physical PV Model,Utility,Group 11,Daily
+0.02,CSSS,Utility,Group 12,Minute
+0.035,Probabilistic Model,Utility,Group 9,Daily
+0.48,Physical PV Model,Utility,Group 7,Minute
+0.41,STGNN,Maui,Group 5,Daily
+0.042,BPNN and CNN,Simulation,Group 13,Hourly
+0.1,Physical PV Model,Utility,Group 7,Minute
+0.048,BPNN and CNN,NREL,Group 9,Minute
+0.819,LSTM,Utility,Group 14,Minute
+0.5,CSSS,Utility,Group 12,Daily
+0.05,DNN,Korean Power,Group 15,Daily
+0.11,ANN,Utility,Group 16,Daily
+0.152,FL-FTransformer,Utility,Group 17,Daily
+0.1036,BPNN and CNN,Simulation,Group 18,Hourle
+0.43,BNN,NREL,Group 19,Daily
+0.4754,Physical PV Model,Utility,Group 9,Hourly
+0.3357,XGBoost,Korean Power,Group 20,Daily
